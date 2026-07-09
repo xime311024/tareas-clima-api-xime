@@ -4,12 +4,15 @@ const express = require('express');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const { body, validationResult } = require('express-validator');
+const tareasRouter = require('./routes/tareas');
 
 const app = express();
 
 app.use(helmet());              // cabeceras de seguridad HTTP
 app.use(express.json());        // parseo seguro de JSON
 app.use(morgan('dev'));         // bitácora de peticiones
+
+app.use('/api/tareas', tareasRouter);
 
 // Ruta de prueba con validación de entrada
 app.post(
