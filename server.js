@@ -6,6 +6,7 @@ const morgan = require('morgan');
 const { body, validationResult } = require('express-validator');
 const tareasRouter = require('./routes/tareas');
 const climaRouter = require('./routes/clima');
+const authRouter = require('./routes/auth');
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(morgan('dev'));         // bitácora de peticiones
 
 app.use('/api/tareas', tareasRouter);
 app.use('/api/clima', climaRouter);
+app.use('/api/auth', authRouter);
 
 // Ruta de prueba con validación de entrada
 app.post(

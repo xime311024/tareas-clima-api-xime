@@ -1,8 +1,8 @@
 {
   "info": {
-    "name": "Sesion 2 - Tareas Clima",
+    "name": "Sesion 2 - Tareas Clima y Auth",
     "_postman_id": "00000000-0000-0000-0000-000000000000",
-    "description": "Colección con endpoints de clima independiente y combinado con tareas",
+    "description": "Colección con endpoints de clima, tareas y autenticación (registro, login, perfil).",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
@@ -59,6 +59,103 @@
         "description": "Prueba de validación: debe devolver 400 porque !! no son caracteres válidos."
       },
       "response": []
+    },
+    {
+      "name": "Auth - Registro",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Alumno\",\n  \"correo\": \"alumno@demo.com\",\n  \"password\": \"123456\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://localhost:3000/api/auth/registro",
+          "protocol": "https",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "auth", "registro"]
+        },
+        "description": "Registra un usuario nuevo para autenticación."
+      },
+      "response": []
+    },
+    {
+      "name": "Auth - Login",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"correo\": \"alumno@demo.com\",\n  \"password\": \"123456\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://localhost:3000/api/auth/login",
+          "protocol": "https",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "auth", "login"]
+        },
+        "description": "Inicia sesión y devuelve un token JWT.",
+        "auth": { "type": "noauth" }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const response = pm.response.json();",
+              "if (response.token) {",
+              "  pm.environment.set('token', response.token);",
+              "}"
+            ]
+          }
+        }
+      ],
+      "response": []
+    },
+    {
+      "name": "Auth - Perfil",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "https://localhost:3000/api/auth/perfil",
+          "protocol": "https",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "auth", "perfil"]
+        },
+        "description": "Obtiene el perfil del usuario usando el token JWT guardado en la variable de entorno.",
+        "auth": { "type": "noauth" }
+      },
+      "response": []
     }
   ],
   "variable": [
@@ -70,6 +167,11 @@
     {
       "key": "ciudad",
       "value": "London",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
       "type": "string"
     }
   ]
