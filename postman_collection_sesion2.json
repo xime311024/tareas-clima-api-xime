@@ -1,0 +1,76 @@
+{
+  "info": {
+    "name": "Sesion 2 - Tareas Clima",
+    "_postman_id": "00000000-0000-0000-0000-000000000000",
+    "description": "Colección con endpoints de clima independiente y combinado con tareas",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get clima por ciudad",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://localhost:3000/api/clima/London",
+          "protocol": "https",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "clima", "London"]
+        },
+        "description": "Endpoint independiente que devuelve el clima de una ciudad. Cambia 'London' por otra ciudad si lo deseas."
+      },
+      "response": []
+    },
+    {
+      "name": "Get tarea + clima",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://localhost:3000/api/tareas/1/clima?ciudad=London",
+          "protocol": "https",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "tareas", "1", "clima"],
+          "query": [
+            {
+              "key": "ciudad",
+              "value": "London"
+            }
+          ]
+        },
+        "description": "Endpoint combinado que devuelve una tarea y el clima para la ciudad indicada en el parámetro ciudad."
+      },
+      "response": []
+    },
+    {
+      "name": "Validación 400 (caracteres inválidos)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://localhost:3000/api/clima/London!!",
+          "protocol": "https",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "clima", "London!!"]
+        },
+        "description": "Prueba de validación: debe devolver 400 porque !! no son caracteres válidos."
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "https://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "ciudad",
+      "value": "London",
+      "type": "string"
+    }
+  ]
+}

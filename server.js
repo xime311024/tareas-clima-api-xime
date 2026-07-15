@@ -5,6 +5,7 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const { body, validationResult } = require('express-validator');
 const tareasRouter = require('./routes/tareas');
+const climaRouter = require('./routes/clima');
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use(express.json());        // parseo seguro de JSON
 app.use(morgan('dev'));         // bitácora de peticiones
 
 app.use('/api/tareas', tareasRouter);
+app.use('/api/clima', climaRouter);
 
 // Ruta de prueba con validación de entrada
 app.post(
